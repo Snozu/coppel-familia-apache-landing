@@ -1,0 +1,93 @@
+---
+/**
+ * ImageSequence.astro
+ * Reproduce una secuencia de fotogramas según el scroll dentro de su sección contenedora.
+ */
+interface Props {
+  images: string[];
+  playScale?: number;
+  width?: number;
+  height?: number;
+}
+
+const {
+  images,
+  playScale = 1,
+  width = 600,
+  height = 600,
+} = Astro.props as Props;
+
+const canvasId = `seq-${crypto.randomUUID()}`;
+---
+
+<canvas id={canvasId} class="w-full max-w-xs" {width} {height}></canvas>
+
+<script define:vars={{ canvasId, images, playScale }}>
+  const canvas = document.getElementById(canvasId);
+  if (!(canvas instanceof HTMLCanvasElement)) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const imageObjects = images.map(src => {
+    const img = new Image();
+    img.src = src;
+    return img;
+  });
+
+  let lastFrame = -1;
+
+  function drawFrame(index) {
+    const frameIndex = Math.max(0, Math.min(imageObjects.length - 1, Math.floor(index)));
+    if (frameIndex === lastFrame) return;
+
+    const img = imageObjects[frameIndex];
+    if (!img) return;
+
+    const doDraw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      lastFrame = frameIndex;
+    };
+
+    if (img.complete) {
+      doDraw();
+    } else {
+      img.onload = doDraw;
+    }
+  }
+
+  function onScroll() {
+    const section = canvas.parentElement;
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    const viewH = window.innerHeight;
+
+    if (rect.bottom < 0 || rect.top > viewH) return;
+
+    const scrollPercent = (viewH - rect.top) / (viewH + rect.height);
+    const progress = Math.max(0, Math.min(1, scrollPercent)) / playScale;
+    const frame = progress * (imageObjects.length - 1);
+    
+    drawFrame(frame);
+  }
+
+  const setup = () => {
+    // Set initial frame based on scroll position
+    onScroll();
+    // Listen for scroll events
+    window.addEventListener('scroll', onScroll, { passive: true });
+  };
+
+  const firstImage = imageObjects[0];
+  if (firstImage) {
+    if (firstImage.complete) {
+      setup();
+    } else {
+      firstImage.onload = setup;
+    }
+  } else {
+    console.warn('[ImageSequence] No images to display.');
+  }
+</script>

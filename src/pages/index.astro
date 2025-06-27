@@ -3,6 +3,7 @@ import MobileFirstLayout from '../layouts/MobileFirstLayout.astro';
 import Hero from '../components/Hero.astro';
 import FamilyIntro from '../components/FamilyIntro.astro';
 import ModelDetail from '../components/ModelDetail.astro';
+import { models } from '../data/models';
 import CTA from '../components/CTA.astro';
 ---
 
@@ -10,7 +11,11 @@ import CTA from '../components/CTA.astro';
 	<div class="snap-wrapper snap-y snap-mandatory overflow-y-scroll h-screen">	
 		<section class="snap-start min-h-screen flex flex-col"><Hero /></section>
 		<section class="snap-start min-h-screen flex flex-col"><FamilyIntro /></section>
-		<section class="snap-start min-h-screen flex flex-col"><ModelDetail /></section>
+		{models.map((m) => (
+      <section class="snap-start min-h-screen flex flex-col" id={m.slug}>
+        <ModelDetail model={m} />
+      </section>
+    ))}
 		<section class="snap-start min-h-screen flex flex-col"><CTA /></section>
 	</div>
 </MobileFirstLayout>

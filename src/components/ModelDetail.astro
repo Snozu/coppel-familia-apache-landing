@@ -1,0 +1,55 @@
+---
+import type { Model } from '../data/models';
+import { models } from '../data/models';
+import ButtonLink from './ButtonLink.astro';
+import ImageSequence from './ImageSequence.astro';
+
+interface Props {
+  /** Slug del modelo a mostrar; si no se pasa se usa el primero */
+  slug?: string;
+  /** Objeto ya resuelto; prioridad sobre slug */
+  model?: Model;
+}
+
+const { slug, model: incomingModel } = Astro.props as Props;
+const model: Model =
+  incomingModel ??
+  (slug ? models.find((m) => m.slug === slug) : models[0])!;
+---
+
+<section class="relative flex flex-col items-center text-center min-h-screen w-full bg-gray-200 px-4 py-6">
+  <!-- Gradients top & bottom -->
+  <div class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#0E1A2F] to-transparent pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0E1A2F] to-transparent pointer-events-none"></div>
+  <!-- Logo & tagline -->
+  <img src={model.logo} alt={model.name + ' logo'} class="mx-auto h-10 w-auto mb-2" loading="lazy" />
+  <p class="text-xs font-semibold tracking-widest text-white/90 bg-red-600 inline-block px-3 py-0.5 uppercase rounded-sm mb-4">
+    {model.tagline}
+  </p>
+
+  <!-- 3D/hero image -->
+  {model.imageSequence ? (
+    <ImageSequence images={model.imageSequence} />
+  ) : (
+    <img src={model.hero} alt={model.name} class="w-full max-w-xs object-contain mx-auto mb-6" loading="lazy" />
+  )}
+
+  <!-- Divider -->
+  <hr class="w-full max-w-sm border-t border-gray-300 mb-6" />
+
+  <!-- Specs grid -->
+  <div class="grid grid-cols-3 gap-4 w-full max-w-sm mb-8">
+    {model.specs.map((s) => (
+      <div class="flex flex-col items-center">
+        {s.icon && <img src={s.icon} alt="" class="h-8 w-8 mb-2" />}
+        <span class="text-xs font-medium text-gray-800 mb-0.5">{s.label}</span>
+        <span class="text-sm font-bold text-red-600 leading-none">{s.value}</span>
+        {s.extra && <span class="text-[10px] text-gray-500">{s.extra}</span>}
+      </div>
+    ))}
+  </div>
+
+  <!-- CTA button -->
+
+<ButtonLink href={model.coppelUrl}>Encuéntrala en coppel.com</ButtonLink>
+</section>

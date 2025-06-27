@@ -1,0 +1,28 @@
+---
+interface Props {
+  /** URL de destino */
+  href: string;
+  /** Se abre en nueva pestaña (target="_blank") */
+  external?: boolean;
+  /** Mostrar icono flecha a la derecha */
+  showArrow?: boolean;
+  /** Clases Tailwind adicionales */
+  class?: string;
+}
+
+const { href, external = true, showArrow = true, class: extraClass = '' } = Astro.props as Props;
+---
+
+<a
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  class={`inline-flex items-center justify-center w-full max-w-sm py-3 bg-blue-600 text-white font-semibold text-sm rounded-sm hover:bg-blue-700 transition-colors ${extraClass}`}
+>
+  <slot />
+  {showArrow && (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-1">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L21 10.5m0 0l-3.75 3.75M21 10.5H3" />
+    </svg>
+  )}
+</a>
