@@ -1,16 +1,16 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileFirstLayout from '../layouts/MobileFirstLayout.astro';
 import Hero from '../components/Hero.astro';
 import FamilyIntro from '../components/FamilyIntro.astro';
 import ModelDetail from '../components/ModelDetail.astro';
 import CTA from '../components/CTA.astro';
 ---
 
-<BaseLayout title="Coppel Familia Apache Landing">
-	<main class="container mx-auto px-4 py-8">	
-		<Hero />
-		<FamilyIntro />
-		<ModelDetail />
-		<CTA />
-	</main>
-</BaseLayout>
+<MobileFirstLayout title="Coppel Familia Apache Landing">
+	<div class="snap-wrapper snap-y snap-mandatory overflow-y-scroll h-screen">	
+		<section class="snap-start min-h-screen flex flex-col"><Hero /></section>
+		<section class="snap-start min-h-screen flex flex-col"><FamilyIntro /></section>
+		<section class="snap-start min-h-screen flex flex-col"><ModelDetail /></section>
+		<section class="snap-start min-h-screen flex flex-col"><CTA /></section>
+	</div>
+</MobileFirstLayout>
