@@ -1,0 +1,40 @@
+---
+import '../styles/main.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Coppel Familia Apache Landing' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Google Analytics (GA4) -->
+    {import.meta.env.PROD && import.meta.env.PUBLIC_GA_MEASUREMENT_ID && (
+      <>
+        <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_MEASUREMENT_ID}`}></script>
+        <script type="text/partytown" define:vars={{ measurementId: import.meta.env.PUBLIC_GA_MEASUREMENT_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', measurementId);
+        </script>
+      </>
+    )}
+  </head>
+  <body class="bg-black text-gray-100 flex flex-col min-h-screen font-sans antialiased">
+    <main id="content" class="flex-1 w-full overflow-x-hidden">
+      <slot />
+    </main>
+  </body>
+</html>
