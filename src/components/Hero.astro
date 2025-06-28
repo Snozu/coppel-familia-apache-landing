@@ -1,0 +1,525 @@
+---
+import { models } from '../data/models';
+---
+
+<section class="relative size-full h-dvh bg-black overflow-hidden">
+  <!-- Base background -->
+  <div class="absolute inset-0 bg-black"></div>
+  
+  <!-- TVS Logo -->
+  <div class="absolute top-10 right-5 z-40">
+    <img 
+      src="/hero/assets/TVSLogo.png" 
+      alt="TVS Logo" 
+      class="size-auto w-[110px] h-[30px]"
+    />
+  </div>
+
+  <!-- Highway Background -->
+  <div class="absolute bottom-[27%] inset-x-0 h-[40%] z-10">
+    <img 
+      src="/hero/assets/Highway.png" 
+      alt="Highway Background" 
+      class="size-full object-cover opacity-70 [transform:perspective(1000px)_rotateX(25deg)_scale(1.4)] origin-bottom"
+    />
+  </div>
+  
+  <!-- Gradient Filter Overlay - covers highway but below UI elements -->
+  <div class="absolute inset-0 z-15 pointer-events-none">
+    <!-- Main gradient filter using custom CSS -->
+    <div class="absolute inset-0" style="background: linear-gradient(to bottom, 
+                black 0%, 
+                rgba(0,0,0,0.8) 15%, 
+                rgba(37,99,235,0.3) 25%, 
+                rgba(96,165,250,0.2) 35%, 
+                rgba(80,97,138,0.225) 37%, 
+                rgba(127,29,29,0.25) 39%, 
+                rgba(153,27,27,0.15) 75%, 
+                black 100%)"></div>
+    
+    <!-- Animated Smoke/mist effect around motorcycle area -->
+    <div class="absolute inset-0 smoke-animation-1"></div>
+    <div class="absolute inset-0 smoke-animation-2"></div>
+    <div class="absolute inset-0 smoke-animation-3"></div>
+  </div>
+
+  <!-- LED Lines with Tailwind 4 -->
+  <div class="absolute bottom-[49%] inset-x-0 z-15 space-y-2">
+    <!-- Main LED -->
+    <div class="led-main-line relative w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent 
+                [transform:perspective(800px)_rotateX(45deg)] origin-bottom 
+                shadow-[0_0_20px_theme(colors.red.500/0.8),0_0_40px_theme(colors.red.500/0.4)]">
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/80 to-transparent blur-sm"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px top-0"></div>
+    </div>
+    
+    <!-- Secondary LED -->
+    <div class="led-secondary-line relative w-full h-0.5 bg-gradient-to-r from-transparent via-red-400/60 to-transparent 
+                [transform:perspective(600px)_rotateX(35deg)] origin-bottom 
+                shadow-[0_0_15px_theme(colors.red.500/0.6)]">
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-red-300/40 to-transparent blur-sm"></div>
+    </div>
+    
+    <!-- Tertiary LED -->
+    <div class="led-tertiary-line relative w-full h-px bg-gradient-to-r from-transparent via-red-300/40 to-transparent 
+                [transform:perspective(400px)_rotateX(25deg)] origin-bottom 
+                shadow-[0_0_10px_theme(colors.red.500/0.4)]"></div>
+  </div>
+
+  <!-- Motorcycle Carousel -->
+  <div class="absolute bottom-[49%] left-1/2 -translate-x-1/2 w-full @container z-30 px-4">
+    <div class="motorcycle-carousel">
+      <div id="carousel-container" class="relative size-full cursor-grab active:cursor-grabbing overflow-hidden">
+        <div id="carousel-track" class="flex transition-transform duration-500 ease-out size-full w-[300%]">
+          {models.map((model) => (
+            <div class="carousel-slide flex-shrink-0 relative flex items-center justify-center select-none w-1/3 h-full">
+              <img 
+                src={model.hero} 
+                alt={model.name}
+                class="motorcycle-img object-contain transition-all duration-300 scale-[1.725] 
+                       drop-shadow-[0_25px_60px_rgba(0,0,0,0.9)] 
+                       [filter:drop-shadow(0_0_40px_rgba(255,255,255,0.08))_drop-shadow(0_0_60px_rgba(59,130,246,0.12))]"
+                loading="eager"
+              />
+              
+              <div class="absolute bottom-0 left-[10%] z-30">
+                <h2 class="text-white font-semibold text-sm tracking-wide font-['Montserrat'] 
+                           [text-shadow:2px_2px_8px_rgba(0,0,0,0.9)] text-center">
+                  {model.name}
+                </h2>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TVS Racing Logo -->
+  <div class="absolute bottom-[289px] left-1/2 -translate-x-1/2 z-40">
+    <img 
+      src="/hero/assets/Capa_5 (2).png" 
+      alt="TVS Racing" 
+      class="size-auto h-[55px] max-w-[300px] object-contain"
+    />
+  </div>
+
+  <!-- Section Title -->
+  <div class="absolute bottom-[185px] left-1/2 -translate-x-1/2 w-[90%] max-w-[350px] z-40">
+    <h1 class="text-white text-center leading-tight font-['Montserrat'] text-[clamp(18px,4.5vw,23px)]">
+      <span class="font-light">Tecnología, Diseño y</span><br>
+      <span class="font-light">Rendimiento en </span><span class="text-red-500 font-bold">cada rodada</span>
+    </h1>
+  </div>
+</section>
+
+<script>
+  // @ts-nocheck
+  class CarouselSwiper {
+    currentSlide;
+    totalSlides;
+    carouselTrack;
+    startX;
+    currentX;
+    isDragging;
+    threshold;
+    autoSlideInterval;
+
+    constructor() {
+      this.currentSlide = 0;
+      this.totalSlides = 0;
+      this.carouselTrack = null;
+      this.startX = 0;
+      this.currentX = 0;
+      this.isDragging = false;
+      this.threshold = 50;
+      this.autoSlideInterval = null;
+    }
+
+    init() {
+      this.carouselTrack = document.getElementById('carousel-track');
+      this.totalSlides = document.querySelectorAll('.carousel-slide').length;
+      
+      if (this.carouselTrack && this.totalSlides > 0) {
+        this.carouselTrack.style.width = `${this.totalSlides * 100}%`;
+        this.setupEventListeners();
+        this.updateCarousel();
+        this.startAutoSlide();
+      }
+    }
+
+    updateCarousel() {
+      if (this.carouselTrack && this.totalSlides > 0) {
+        const translateX = -this.currentSlide * (100 / this.totalSlides);
+        this.carouselTrack.style.transform = `translateX(${translateX}%)`;
+      }
+    }
+
+    nextSlide() {
+      if (this.totalSlides > 0) {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateCarousel();
+      }
+    }
+
+    prevSlide() {
+      if (this.totalSlides > 0) {
+        this.currentSlide = this.currentSlide === 0 ? this.totalSlides - 1 : this.currentSlide - 1;
+        this.updateCarousel();
+      }
+    }
+
+    handleStart(clientX) {
+      this.startX = clientX;
+      this.currentX = clientX;
+      this.isDragging = true;
+      this.stopAutoSlide();
+    }
+
+    handleMove(clientX) {
+      if (!this.isDragging) return;
+      this.currentX = clientX;
+    }
+
+    handleEnd() {
+      if (!this.isDragging) return;
+      
+      const diff = this.currentX - this.startX;
+      
+      if (Math.abs(diff) > this.threshold) {
+        if (diff > 0) {
+          this.prevSlide();
+        } else {
+          this.nextSlide();
+        }
+      }
+      
+      this.isDragging = false;
+      this.startAutoSlide();
+    }
+
+    setupEventListeners() {
+      const carousel = document.getElementById('carousel-container');
+      
+      if (!carousel) return;
+
+      // Touch events
+      carousel.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        this.handleStart(e.touches[0].clientX);
+      }, { passive: false });
+
+      carousel.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        this.handleMove(e.touches[0].clientX);
+      }, { passive: false });
+
+      carousel.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        this.handleEnd();
+      }, { passive: false });
+
+      // Mouse events for desktop
+      carousel.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        this.handleStart(e.clientX);
+        carousel.style.cursor = 'grabbing';
+      });
+
+      carousel.addEventListener('mousemove', (e) => {
+        if (this.isDragging) {
+          e.preventDefault();
+          this.handleMove(e.clientX);
+        }
+      });
+
+      carousel.addEventListener('mouseup', (e) => {
+        this.handleEnd();
+        carousel.style.cursor = 'grab';
+      });
+
+      carousel.addEventListener('mouseleave', () => {
+        if (this.isDragging) {
+          this.handleEnd();
+          carousel.style.cursor = 'grab';
+        }
+      });
+
+      // Prevent context menu on long press
+      carousel.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+      });
+    }
+
+    startAutoSlide() {
+      this.stopAutoSlide();
+      this.autoSlideInterval = setInterval(() => {
+        if (!this.isDragging) {
+          this.nextSlide();
+        }
+      }, 5000);
+    }
+
+    stopAutoSlide() {
+      if (this.autoSlideInterval) {
+        clearInterval(this.autoSlideInterval);
+        this.autoSlideInterval = null;
+      }
+    }
+  }
+
+  // Initialize carousel
+  const carousel = new CarouselSwiper();
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    carousel.init();
+  });
+
+  // Also initialize immediately if DOM is already loaded
+  if (document.readyState !== 'loading') {
+    setTimeout(() => {
+      carousel.init();
+    }, 100);
+  }
+</script>
+
+<style>
+  .carousel-slide {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  
+  #carousel-container {
+    cursor: grab;
+  }
+  
+  #carousel-container:active {
+    cursor: grabbing;
+  }
+
+  /* LED Lines with Perspective Effect */
+  .led-main-line {
+    animation: led-pulse-main 3s ease-in-out infinite;
+    box-shadow: 
+      0 0 20px rgba(239, 68, 68, 0.8),
+      0 0 40px rgba(239, 68, 68, 0.4),
+      0 0 80px rgba(239, 68, 68, 0.1);
+  }
+
+  .led-secondary-line {
+    animation: led-pulse-secondary 3s ease-in-out infinite 0.5s;
+    box-shadow: 
+      0 0 15px rgba(239, 68, 68, 0.6),
+      0 0 30px rgba(239, 68, 68, 0.3);
+  }
+
+  .led-tertiary-line {
+    animation: led-pulse-tertiary 3s ease-in-out infinite 1s;
+    box-shadow: 
+      0 0 10px rgba(239, 68, 68, 0.4),
+      0 0 20px rgba(239, 68, 68, 0.2);
+  }
+
+  @keyframes led-pulse-main {
+    0%, 100% { opacity: 0.9; transform: perspective(800px) rotateX(45deg) scaleX(1); }
+    50% { opacity: 1; transform: perspective(800px) rotateX(45deg) scaleX(1.05); }
+  }
+
+  @keyframes led-pulse-secondary {
+    0%, 100% { opacity: 0.7; transform: perspective(600px) rotateX(35deg) scaleX(1); }
+    50% { opacity: 0.9; transform: perspective(600px) rotateX(35deg) scaleX(1.03); }
+  }
+
+  @keyframes led-pulse-tertiary {
+    0%, 100% { opacity: 0.5; transform: perspective(400px) rotateX(25deg) scaleX(1); }
+    50% { opacity: 0.7; transform: perspective(400px) rotateX(25deg) scaleX(1.02); }
+  }
+
+  /* Animated Smoke Effects */
+  .smoke-animation-1 {
+    background: radial-gradient(ellipse 80% 53% at 45% 50%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.08) 15%, rgba(59,130,246,0.04) 35%, rgba(96,165,250,0.02) 55%, transparent 75%);
+    animation: smoke-drift-1 8s ease-in-out infinite;
+    clip-path: polygon(20% 30%, 80% 30%, 85% 70%, 75% 78%, 25% 78%, 15% 70%);
+  }
+
+  .smoke-animation-2 {
+    background: radial-gradient(ellipse 90% 58% at 55% 48%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.06) 20%, rgba(96,165,250,0.05) 40%, rgba(147,197,253,0.03) 60%, transparent 80%);
+    animation: smoke-drift-2 12s ease-in-out infinite;
+    clip-path: polygon(15% 25%, 85% 25%, 90% 75%, 80% 83%, 20% 83%, 10% 75%);
+  }
+
+  .smoke-animation-3 {
+    background: radial-gradient(ellipse 70% 48% at 50% 52%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 25%, rgba(147,197,253,0.04) 45%, rgba(59,130,246,0.02) 65%, transparent 85%);
+    animation: smoke-drift-3 10s ease-in-out infinite;
+    clip-path: polygon(25% 35%, 75% 35%, 80% 75%, 70% 83%, 30% 83%, 20% 75%);
+  }
+
+  @keyframes smoke-drift-1 {
+    0%, 100% { 
+      transform: translateX(0%) translateY(0%) scale(1);
+      opacity: 0.6;
+    }
+    25% { 
+      transform: translateX(-2%) translateY(-1%) scale(1.05);
+      opacity: 0.8;
+    }
+    50% { 
+      transform: translateX(1%) translateY(-2%) scale(0.95);
+      opacity: 0.7;
+    }
+    75% { 
+      transform: translateX(2%) translateY(-1%) scale(1.02);
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes smoke-drift-2 {
+    0%, 100% { 
+      transform: translateX(0%) translateY(0%) scale(1);
+      opacity: 0.5;
+    }
+    30% { 
+      transform: translateX(3%) translateY(-1.5%) scale(1.08);
+      opacity: 0.7;
+    }
+    60% { 
+      transform: translateX(-1%) translateY(-3%) scale(0.92);
+      opacity: 0.6;
+    }
+    80% { 
+      transform: translateX(-2%) translateY(-1%) scale(1.04);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes smoke-drift-3 {
+    0%, 100% { 
+      transform: translateX(0%) translateY(0%) scale(1);
+      opacity: 0.4;
+    }
+    20% { 
+      transform: translateX(-1%) translateY(-2%) scale(1.06);
+      opacity: 0.6;
+    }
+    40% { 
+      transform: translateX(2%) translateY(-1%) scale(0.94);
+      opacity: 0.5;
+    }
+    70% { 
+      transform: translateX(1%) translateY(-2.5%) scale(1.03);
+      opacity: 0.7;
+    }
+  }
+
+
+
+  /* Motorcycle carousel fixes */
+  .motorcycle-img {
+    object-fit: contain;
+  }
+
+  /* Container queries for responsive adjustments */
+  @container (max-width: 375px) {
+    .motorcycle-carousel {
+      max-width: 320px;
+      height: 280px;
+    }
+    
+    .motorcycle-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 280px !important;
+      max-height: 220px !important;
+    }
+    
+    .carousel-slide h2 {
+      font-size: 10px !important;
+    }
+  }
+
+  @container (min-width: 376px) and (max-width: 414px) {
+    .motorcycle-carousel {
+      max-width: 360px;
+      height: 320px;
+    }
+    
+    .motorcycle-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 320px !important;
+      max-height: 260px !important;
+    }
+    
+    .carousel-slide h2 {
+      font-size: 11px !important;
+    }
+  }
+
+  @container (min-width: 415px) and (max-width: 768px) {
+    .motorcycle-carousel {
+      max-width: 400px;
+      height: 360px;
+    }
+    
+    .motorcycle-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 360px !important;
+      max-height: 300px !important;
+    }
+    
+    .carousel-slide h2 {
+      font-size: 12px !important;
+    }
+  }
+
+  @container (min-width: 769px) {
+    .motorcycle-carousel {
+      max-width: 380px;
+      height: 400px;
+    }
+    
+    .motorcycle-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      max-height: none !important;
+    }
+    
+    .carousel-slide h2 {
+      font-size: 16px;
+    }
+  }
+
+  /* Highway perspective effect */
+  .highway-background {
+    transform-origin: bottom center;
+    backface-visibility: hidden;
+  }
+
+  /* Text shadow for better readability */
+  h1, h2 {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Fix overflow to hide adjacent models while preserving image visibility */
+  #carousel-container {
+    overflow: visible !important;
+  }
+
+  .carousel-slide {
+    overflow: visible !important;
+  }
+
+  .motorcycle-carousel {
+    overflow: visible !important;
+  }
+
+  /* Remove old positioning rules */
+  .carousel-slide .absolute.left-\[-80px\] {
+    position: static !important;
+    transform: none !important;
+  }
+</style>
