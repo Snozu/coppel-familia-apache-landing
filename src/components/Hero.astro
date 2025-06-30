@@ -2,7 +2,7 @@
 import { models } from '../data/models';
 ---
 
-<section class="relative size-full h-dvh bg-black overflow-hidden">
+<section id="rtr-160-2v" class="relative size-full h-dvh bg-black overflow-hidden">
   <!-- Base background -->
   <div class="absolute inset-0 bg-black"></div>
   
@@ -339,21 +339,18 @@ import { models } from '../data/models';
 
   /* Animated Smoke Effects */
   .smoke-animation-1 {
-    background: radial-gradient(ellipse 80% 53% at 45% 50%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.08) 15%, rgba(59,130,246,0.04) 35%, rgba(96,165,250,0.02) 55%, transparent 75%);
+    background: radial-gradient(ellipse 60% 25% at 45% 57%, rgba(255,255,255,0.04) 0%, rgba(59,130,246,0.02) 30%, transparent 60%);
     animation: smoke-drift-1 8s ease-in-out infinite;
-    clip-path: polygon(20% 30%, 80% 30%, 85% 70%, 75% 78%, 25% 78%, 15% 70%);
   }
 
   .smoke-animation-2 {
-    background: radial-gradient(ellipse 90% 58% at 55% 48%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.06) 20%, rgba(96,165,250,0.05) 40%, rgba(147,197,253,0.03) 60%, transparent 80%);
+    background: radial-gradient(ellipse 70% 30% at 55% 55%, rgba(96,165,250,0.03) 0%, rgba(255,255,255,0.015) 40%, transparent 70%);
     animation: smoke-drift-2 12s ease-in-out infinite;
-    clip-path: polygon(15% 25%, 85% 25%, 90% 75%, 80% 83%, 20% 83%, 10% 75%);
   }
 
   .smoke-animation-3 {
-    background: radial-gradient(ellipse 70% 48% at 50% 52%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 25%, rgba(147,197,253,0.04) 45%, rgba(59,130,246,0.02) 65%, transparent 85%);
+    background: radial-gradient(ellipse 50% 20% at 50% 59%, rgba(147,197,253,0.025) 0%, rgba(255,255,255,0.01) 50%, transparent 80%);
     animation: smoke-drift-3 10s ease-in-out infinite;
-    clip-path: polygon(25% 35%, 75% 35%, 80% 75%, 70% 83%, 30% 83%, 20% 75%);
   }
 
   @keyframes smoke-drift-1 {
