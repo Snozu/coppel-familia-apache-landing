@@ -1,0 +1,483 @@
+---
+// Navbar component for navigation
+---
+
+<nav id="navbar" class="fixed bottom-[7%] left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4">
+  <div class="navbar-container relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-6 py-3 shadow-lg">
+    <!-- Navigation items -->
+    <ul class="flex items-center justify-between space-x-1">
+      <li>
+        <a 
+          href="#rtr-160-2v" 
+          class="nav-link active relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 rounded-xl"
+          data-section="rtr-160-2v"
+        >
+          <span class="flex flex-col items-center leading-tight">
+            <span>RTR</span>
+            <span>160 2V</span>
+          </span>
+          <div class="nav-indicator absolute inset-0 bg-red-500/30 rounded-xl scale-0 transition-transform duration-300"></div>
+        </a>
+      </li>
+      <li>
+        <a 
+          href="#rtr-160-4v" 
+          class="nav-link relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 rounded-xl"
+          data-section="rtr-160-4v"
+        >
+          <span class="flex flex-col items-center leading-tight">
+            <span>RTR</span>
+            <span>160 4V</span>
+          </span>
+          <div class="nav-indicator absolute inset-0 bg-red-500/30 rounded-xl scale-0 transition-transform duration-300"></div>
+        </a>
+      </li>
+      <li>
+        <a 
+          href="#rtr-200-4v" 
+          class="nav-link relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 rounded-xl"
+          data-section="rtr-200-4v"
+        >
+          <span class="flex flex-col items-center leading-tight">
+            <span>RTR</span>
+            <span>200 4V</span>
+          </span>
+          <div class="nav-indicator absolute inset-0 bg-red-500/30 rounded-xl scale-0 transition-transform duration-300"></div>
+        </a>
+      </li>
+      <li>
+        <a 
+          href="#smart-connect" 
+          class="nav-link relative px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-all duration-300 rounded-xl"
+          data-section="smart-connect"
+        >
+          <span class="flex flex-col items-center leading-tight">
+            <span>SMART</span>
+            <span>CONNECT</span>
+          </span>
+          <div class="nav-indicator absolute inset-0 bg-red-500/30 rounded-xl scale-0 transition-transform duration-300"></div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  // @ts-nocheck
+  class StickyNavbar {
+    navbar;
+    navLinks;
+    sections;
+    currentSection;
+
+    constructor() {
+      this.navbar = null;
+      this.navLinks = [];
+      this.sections = [];
+      this.currentSection = 'rtr-160-2v';
+    }
+
+    init() {
+      console.log('Initializing navbar...');
+      this.navbar = document.getElementById('navbar');
+      this.navLinks = document.querySelectorAll('.nav-link');
+      
+      console.log('Navbar found:', !!this.navbar);
+      console.log('Links found:', this.navLinks.length);
+      
+      if (this.navbar && this.navLinks.length > 0) {
+        this.setupEventListeners();
+        this.updateActiveSection();
+        this.setupScrollHandler();
+        console.log('Navbar initialized successfully');
+      } else {
+        console.error('Failed to initialize navbar');
+      }
+    }
+
+    setupEventListeners() {
+      console.log('Setting up event listeners for', this.navLinks.length, 'links');
+      
+      // Click handlers for navigation
+      this.navLinks.forEach((link, index) => {
+        console.log(`Setting up link ${index}:`, link.getAttribute('data-section'));
+        
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log('Link clicked:', link.getAttribute('data-section'));
+          
+          const targetSection = link.getAttribute('data-section');
+          
+          // Set active immediately for visual feedback
+          this.setActiveLink(link);
+          
+          // Then navigate
+          this.navigateToSection(targetSection);
+        });
+
+        // Hover effects
+        link.addEventListener('mouseenter', () => {
+          if (!link.classList.contains('active')) {
+            const indicator = link.querySelector('.nav-indicator');
+            if (indicator) {
+              indicator.style.transform = 'scale(1)';
+              indicator.style.opacity = '0.1';
+            }
+          }
+        });
+
+        link.addEventListener('mouseleave', () => {
+          if (!link.classList.contains('active')) {
+            const indicator = link.querySelector('.nav-indicator');
+            if (indicator) {
+              indicator.style.transform = 'scale(0)';
+              indicator.style.opacity = '0';
+            }
+          }
+        });
+      });
+    }
+
+    setupScrollHandler() {
+      // Intersection Observer for automatic section detection
+      const observerOptions = {
+        root: null,
+        rootMargin: '-10% 0px -80% 0px', // Adjusted for bottom navbar
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            const correspondingLink = document.querySelector(`[data-section="${sectionId}"]`);
+            if (correspondingLink) {
+              this.setActiveLink(correspondingLink);
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe sections when they're added to the DOM
+      this.observeSections(observer);
+    }
+
+    observeSections(observer) {
+      // Check for sections periodically until they're all found
+      const checkSections = () => {
+        const sectionSelectors = ['#rtr-160-2v', '#rtr-160-4v', '#rtr-200-4v', '#smart-connect'];
+        let foundSections = 0;
+
+        sectionSelectors.forEach(selector => {
+          const section = document.querySelector(selector);
+          if (section && !section.hasAttribute('data-observed')) {
+            observer.observe(section);
+            section.setAttribute('data-observed', 'true');
+            foundSections++;
+          }
+        });
+
+        // If not all sections found, check again in 1 second
+        if (foundSections < sectionSelectors.length) {
+          setTimeout(checkSections, 1000);
+        }
+      };
+
+      checkSections();
+    }
+
+    navigateToSection(sectionId) {
+      console.log('Navigating to section:', sectionId);
+      const targetElement = document.getElementById(sectionId);
+      console.log('Target element found:', targetElement);
+      
+      if (targetElement) {
+        // For snap scroll, we need to scroll to the element directly
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        console.log('Scrolled to section:', sectionId);
+      } else {
+        console.warn('Section not found:', sectionId);
+      }
+    }
+
+    setActiveLink(activeLink) {
+      console.log('Setting active link:', activeLink);
+      
+      // Remove active state from all links
+      this.navLinks.forEach(link => {
+        link.classList.remove('active');
+        const indicator = link.querySelector('.nav-indicator');
+        if (indicator) {
+          indicator.style.transform = 'scale(0)';
+          indicator.style.opacity = '0';
+        }
+      });
+
+      // Add active state to clicked link
+      if (activeLink) {
+        activeLink.classList.add('active');
+        const activeIndicator = activeLink.querySelector('.nav-indicator');
+        if (activeIndicator) {
+          activeIndicator.style.transform = 'scale(1)';
+          activeIndicator.style.opacity = '1';
+        }
+        
+        this.currentSection = activeLink.getAttribute('data-section');
+        console.log('Active section set to:', this.currentSection);
+      }
+    }
+
+    updateActiveSection() {
+      // Set initial active state
+      const activeLink = document.querySelector(`[data-section="${this.currentSection}"]`);
+      if (activeLink) {
+        this.setActiveLink(activeLink);
+      }
+    }
+  }
+
+  // Initialize navbar
+  const navbar = new StickyNavbar();
+  
+  function initializeNavbar() {
+    console.log('DOM ready, initializing navbar...');
+    navbar.init();
+  }
+  
+  // Multiple initialization strategies
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeNavbar);
+  } else {
+    // DOM already loaded
+    initializeNavbar();
+  }
+  
+  // Backup initialization
+  setTimeout(() => {
+    if (!navbar.navbar) {
+      console.log('Backup initialization...');
+      navbar.init();
+    }
+  }, 500);
+</script>
+
+<style>
+  /* Liquid glass navbar styling */
+  .navbar-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-link {
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    letter-spacing: 0.025em;
+  }
+
+  .nav-link.active {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .nav-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    transform: scale(0);
+    transition: all 0.3s ease;
+    z-index: -1;
+  }
+
+  /* Subtle LED Retroillumination Effect */
+  .nav-link.active .nav-indicator {
+    transform: scale(1);
+    opacity: 1;
+    background: radial-gradient(ellipse at center, 
+      rgba(239, 68, 68, 0.3) 0%, 
+      rgba(220, 38, 38, 0.25) 40%,
+      rgba(185, 28, 28, 0.2) 70%,
+      rgba(127, 29, 29, 0.15) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 1rem;
+    backdrop-filter: blur(6px);
+    box-shadow: 
+      /* Gentle inner glow */
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(239, 68, 68, 0.15),
+      /* Subtle outer glow */
+      0 0 8px rgba(239, 68, 68, 0.4),
+      0 0 16px rgba(220, 38, 38, 0.3),
+      0 0 24px rgba(185, 28, 28, 0.2),
+      /* Soft reflection */
+      0 2px 8px rgba(239, 68, 68, 0.2);
+  }
+
+  /* Subtle Text Enhancement */
+  .nav-link.active {
+    color: rgba(255, 255, 255, 1) !important;
+    text-shadow: 
+      0 0 4px rgba(239, 68, 68, 0.4),
+      0 0 8px rgba(220, 38, 38, 0.3),
+      1px 1px 2px rgba(0, 0, 0, 0.6);
+    font-weight: 600;
+    letter-spacing: 0.25px;
+  }
+
+  /* Gentle Breathing Animation */
+  @keyframes gentle-glow {
+    0%, 100% { 
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(239, 68, 68, 0.15),
+        0 0 8px rgba(239, 68, 68, 0.4),
+        0 0 16px rgba(220, 38, 38, 0.3),
+        0 0 24px rgba(185, 28, 28, 0.2),
+        0 2px 8px rgba(239, 68, 68, 0.2);
+      opacity: 1;
+    }
+    50% { 
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(239, 68, 68, 0.2),
+        0 0 12px rgba(239, 68, 68, 0.5),
+        0 0 20px rgba(220, 38, 38, 0.4),
+        0 0 28px rgba(185, 28, 28, 0.25),
+        0 3px 12px rgba(239, 68, 68, 0.25);
+      opacity: 1;
+    }
+  }
+
+  .nav-link.active .nav-indicator {
+    animation: gentle-glow 6s ease-in-out infinite;
+  }
+
+  /* Minimal Outer Glow */
+  .nav-link.active::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: radial-gradient(ellipse at center,
+      rgba(239, 68, 68, 0.15) 0%,
+      rgba(220, 38, 38, 0.1) 40%,
+      transparent 70%
+    );
+    border-radius: 1.2rem;
+    z-index: -2;
+    opacity: 0.6;
+    animation: soft-pulse 6s ease-in-out infinite;
+  }
+
+  /* Subtle Inner Highlight */
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: radial-gradient(ellipse at 30% 20%,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 80%
+    );
+    border-radius: 0.8rem;
+    z-index: -1;
+    animation: shimmer 8s ease-in-out infinite;
+  }
+
+  @keyframes soft-pulse {
+    0%, 100% { 
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% { 
+      transform: scale(1.02);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Hover effects */
+  .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  /* Mobile bottom navbar styling */
+  @media (max-width: 768px) {
+    #navbar {
+      bottom: 7%;
+      max-width: calc(100vw - 1rem);
+    }
+    
+    .navbar-container {
+      padding: 0.5rem 0.75rem;
+      border-radius: 1.5rem;
+    }
+    
+    .nav-link {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      text-align: center;
+      line-height: 1.2;
+    }
+    
+    .nav-indicator {
+      border-radius: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #navbar {
+      max-width: calc(100vw - 0.5rem);
+      bottom: 5%;
+    }
+    
+    .navbar-container {
+      padding: 0.4rem 0.5rem;
+    }
+    
+    .nav-link {
+      padding: 0.4rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+
+  /* Smooth transitions for all elements */
+  * {
+    transition: all 0.3s ease;
+  }
+
+  /* Additional glass morphism effects */
+  .navbar-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+</style>

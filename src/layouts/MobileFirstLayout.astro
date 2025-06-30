@@ -1,5 +1,6 @@
 ---
 import '../styles/main.css';
+import Navbar from '../components/Navbar.astro';
 
 interface Props {
   title: string;
@@ -38,6 +39,9 @@ const { title, description = 'Coppel Familia Apache Landing' } = Astro.props;
     )}
   </head>
   <body class="bg-black text-gray-100 flex flex-col min-h-screen font-sans antialiased">
+    <!-- Sticky Navbar -->
+    <Navbar />
+    
     <main id="content" class="flex-1 w-full overflow-x-hidden">
       <slot />
     </main>
