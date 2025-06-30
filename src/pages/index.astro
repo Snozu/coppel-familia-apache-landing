@@ -8,9 +8,16 @@ import CTA from '../components/CTA.astro';
 
 <MobileFirstLayout title="Coppel Familia Apache Landing">
 	<div class="snap-wrapper snap-y snap-mandatory overflow-y-scroll h-screen">	
+		<!-- RTR 160 2V Section -->
 		<section class="snap-start min-h-screen flex flex-col"><Hero /></section>
-		<section class="snap-start min-h-screen flex flex-col"><FamilyIntro /></section>
-		<section class="snap-start min-h-screen flex flex-col"><ModelDetail /></section>
-		<section class="snap-start min-h-screen flex flex-col"><CTA /></section>
+		
+		<!-- RTR 160 4V Section -->
+		<section id="rtr-160-4v" class="snap-start min-h-screen flex flex-col"><FamilyIntro /></section>
+		
+		<!-- RTR 200 4V Section -->
+		<section id="rtr-200-4v" class="snap-start min-h-screen flex flex-col"><ModelDetail /></section>
+		
+		<!-- Smart Connect Section -->
+		<section id="smart-connect" class="snap-start min-h-screen flex flex-col"><CTA /></section>
 	</div>
 </MobileFirstLayout>
