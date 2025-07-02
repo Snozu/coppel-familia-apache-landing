@@ -1,0 +1,698 @@
+---
+// Benefits section with horizontal swipe timeline
+---
+
+<section class="benefits-section relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
+  <!-- Background with blue-purple gradient -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="/benefits/bg_beneficios.webp" 
+      alt="Benefits background" 
+      class="w-full h-full object-cover"
+    />
+    <!-- Complex gradient overlay matching exact Figma design -->
+    <div class="absolute inset-0 bg-gradient-overlay"></div>
+  </div>
+  
+  <!-- Continuous Red Line across entire section -->
+  <div class="absolute inset-0 z-5 flex items-center">
+    <div class="w-full h-1 bg-red-500"></div>
+  </div>
+  
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-12 max-w-6xl mx-auto w-full">
+    <!-- Section Title -->
+    <div class="mb-16">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl text-white leading-tight uppercase italic">
+        <span class="block"><span class="font-bold">¿POR QUÉ</span> <span class="font-normal">ELEGIR</span></span>
+        <span class="block"><span class="font-normal">UNA</span> <span class="font-bold text-red-500">TVS?</span></span>
+      </h2>
+    </div>
+    
+    <!-- Benefits Timeline Container -->
+    <div class="benefits-timeline-container relative w-full h-96 md:h-[500px]">
+      <!-- Timeline Viewport -->
+      <div class="timeline-viewport relative w-full h-full overflow-hidden">
+        <!-- Benefits Track (moves horizontally) -->
+        <div id="benefits-track" class="benefits-track absolute top-0 left-0 h-full transition-transform duration-1200 ease-in-out" style="width: 400%; transform: translateX(0%);">
+          
+          <!-- State 1: Tecnología premiada en India -->
+          <div class="benefit-state absolute top-0 left-0 w-1/4 h-full flex items-center justify-center">
+            <div class="benefit-circle w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full border-4 border-red-500 overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(239,68,68,0.5)]">
+              <img 
+                src="/benefits/benefits_1.webp" 
+                alt="Tecnología premiada en India" 
+                class="w-full h-full object-cover benefit-image" 
+                loading="lazy"
+                width="400"
+                height="400"
+                data-benefit-id="technology-india"
+              />
+            </div>
+          </div>
+          
+          <!-- State 2: Conectividad SmartXonnect -->
+          <div class="benefit-state absolute top-0 left-1/4 w-1/4 h-full flex items-center justify-center">
+            <div class="benefit-circle w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full border-4 border-red-500 overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(239,68,68,0.5)]">
+              <img 
+                src="/benefits/benefits_2.webp" 
+                alt="Conectividad SmartXonnect" 
+                class="w-full h-full object-cover benefit-image" 
+                loading="lazy"
+                width="400"
+                height="400"
+                data-benefit-id="smart-connectivity"
+              />
+            </div>
+          </div>
+          
+          <!-- State 3: Fácil mantenimiento y servicios en todo México -->
+          <div class="benefit-state absolute top-0 left-2/4 w-1/4 h-full flex items-center justify-center">
+            <div class="benefit-circle w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full border-4 border-red-500 overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(239,68,68,0.5)]">
+              <img 
+                src="/benefits/benefits_3.webp" 
+                alt="Fácil mantenimiento y servicios" 
+                class="w-full h-full object-cover benefit-image" 
+                loading="lazy"
+                width="400"
+                height="400"
+                data-benefit-id="easy-maintenance"
+              />
+            </div>
+          </div>
+          
+          <!-- State 4: ADN deportivo, legado Apache -->
+          <div class="benefit-state absolute top-0 left-3/4 w-1/4 h-full flex items-center justify-center">
+            <div class="benefit-circle w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full border-4 border-red-500 overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(239,68,68,0.5)]">
+              <img 
+                src="/benefits/benefits_4.webp" 
+                alt="ADN deportivo, legado Apache" 
+                class="w-full h-full object-cover benefit-image" 
+                loading="lazy"
+                width="400"
+                height="400"
+                data-benefit-id="racing-dna"
+              />
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Benefit Description -->
+    <div class="benefit-description text-center mt-2">
+      <h3 id="benefit-title" class="text-white font-semibold text-xl md:text-2xl lg:text-3xl leading-relaxed min-h-[3rem] md:min-h-[4rem] lg:min-h-[5rem] flex items-center justify-center">
+        <span class="benefit-text">Tecnología premiada en<br>India</span>
+      </h3>
+    </div>
+  </div>
+  
+  <!-- Bottom spacing for navbar -->
+  <div class="h-24"></div>
+</section>
+
+<script>
+  // @ts-nocheck
+  class BenefitsTimeline {
+    constructor() {
+      this.currentState = 0;
+      this.totalStates = 4; // 4 main benefits
+      this.states = [
+        {
+          title: 'Tecnología premiada en<br>India',
+          translateX: '0%'
+        },
+        {
+          title: 'Conectividad SmartXonnect',
+          translateX: '-25%'
+        },
+        {
+          title: 'Fácil mantenimiento y<br>servicios en todo México',
+          translateX: '-50%'
+        },
+        {
+          title: 'ADN deportivo,<br>legado Apache',
+          translateX: '-75%'
+        }
+      ];
+      this.isAnimating = false;
+      this.isPaused = false;
+    }
+
+    init() {
+      console.log('Initializing Benefits Timeline...');
+      this.setupTouchEvents();
+      this.setupIntersectionObserver();
+      this.setupImageLoading();
+      this.setupPinchZoom();
+      // DON'T start auto-advance here - wait for Intersection Observer
+      console.log('Benefits Timeline initialized - waiting for section to be visible');
+    }
+
+    // Setup image loading states
+    setupImageLoading() {
+      const images = document.querySelectorAll('.benefit-image');
+      images.forEach(img => {
+        if (img.complete) {
+          img.classList.add('loaded');
+        } else {
+          img.addEventListener('load', () => {
+            img.classList.add('loaded');
+          });
+          img.addEventListener('error', () => {
+            console.warn('Failed to load image:', img.src);
+          });
+        }
+      });
+    }
+
+    // Intersection Observer - only start when BenefitsSection is visible
+    setupIntersectionObserver() {
+      if (!('IntersectionObserver' in window)) {
+        // Fallback for older browsers - don't auto-start
+        return;
+      }
+
+      const benefitsSection = document.querySelector('.benefits-section');
+      if (!benefitsSection) return;
+
+      this.intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Reset to first benefit when section becomes visible
+              this.resetToFirstBenefit();
+              // Start auto-advance
+              this.startAutoAdvance();
+              console.log('BenefitsSection is visible - starting carousel');
+            } else {
+              // Stop auto-advance when section is not visible
+              this.stopAutoAdvance();
+              console.log('BenefitsSection is not visible - stopping carousel');
+            }
+          });
+        },
+        { 
+          threshold: 0.4, // Start when 40% of section is visible
+          rootMargin: '0px 0px -20% 0px' // More conservative trigger
+        }
+      );
+
+      this.intersectionObserver.observe(benefitsSection);
+    }
+
+    // Reset to first benefit
+    resetToFirstBenefit() {
+      if (this.currentState !== 0) {
+        this.currentState = 0;
+        this.updateTimeline();
+      }
+    }
+
+    stopAutoAdvance() {
+      if (this.autoAdvanceInterval) {
+        clearInterval(this.autoAdvanceInterval);
+        this.autoAdvanceInterval = null;
+      }
+    }
+
+    setupTouchEvents() {
+      const timeline = document.querySelector('.benefits-timeline-container');
+      if (!timeline) return;
+
+      // Add hover pause functionality
+      timeline.addEventListener('mouseenter', () => {
+        this.isPaused = true;
+        this.stopAutoAdvance();
+      });
+
+      timeline.addEventListener('mouseleave', () => {
+        this.isPaused = false;
+        // Only restart if section is still visible
+        const benefitsSection = document.querySelector('.benefits-section');
+        if (benefitsSection) {
+          const rect = benefitsSection.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          if (isVisible) {
+            this.startAutoAdvance();
+          }
+        }
+      });
+
+      let startX = 0;
+      let isDragging = false;
+
+      timeline.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      });
+
+      timeline.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+      });
+
+      timeline.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        const swipeDistance = Math.abs(diff);
+
+        if (swipeDistance > 30) {
+          if (diff > 0) {
+            this.nextState();
+          } else {
+            this.prevState();
+          }
+        }
+        isDragging = false;
+      });
+
+      // Mouse events for desktop
+      timeline.addEventListener('mousedown', (e) => {
+        startX = e.clientX;
+        isDragging = true;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mouseup', (e) => {
+        if (!isDragging) return;
+        const endX = e.clientX;
+        const diff = startX - endX;
+        const swipeDistance = Math.abs(diff);
+
+        if (swipeDistance > 30) {
+          if (diff > 0) {
+            this.nextState();
+          } else {
+            this.prevState();
+          }
+        }
+        isDragging = false;
+      });
+    }
+
+    nextState() {
+      if (this.isAnimating) return;
+      this.currentState = (this.currentState + 1) % this.totalStates;
+      this.updateTimeline();
+    }
+
+    prevState() {
+      if (this.isAnimating) return;
+      this.currentState = this.currentState > 0 ? this.currentState - 1 : this.totalStates - 1;
+      this.updateTimeline();
+    }
+
+    updateTimeline() {
+      if (this.isAnimating) return;
+      
+      this.isAnimating = true;
+      const currentState = this.states[this.currentState];
+      
+      const track = document.getElementById('benefits-track');
+      const titleElement = document.getElementById('benefit-title');
+      
+      if (track && titleElement) {
+        // Update track position
+        track.style.transform = `translateX(${currentState.translateX})`;
+        
+        // Update title with smooth fade effect
+        titleElement.style.opacity = '0';
+        titleElement.style.transform = 'translateY(10px)';
+        
+        // Use requestAnimationFrame for smoother animations
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            const textSpan = titleElement.querySelector('.benefit-text');
+            if (textSpan) {
+              textSpan.innerHTML = currentState.title;
+            } else {
+              titleElement.innerHTML = `<span class="benefit-text">${currentState.title}</span>`;
+            }
+            titleElement.style.opacity = '1';
+            titleElement.style.transform = 'translateY(0)';
+            this.isAnimating = false;
+          }, 300);
+        });
+      } else {
+        this.isAnimating = false;
+      }
+    }
+
+    startAutoAdvance() {
+      this.stopAutoAdvance(); // Clear any existing interval
+      this.autoAdvanceInterval = setInterval(() => {
+        if (!this.isAnimating && !this.isPaused) {
+          this.nextState();
+        }
+      }, 6000);
+    }
+
+    // Pinch-to-zoom gestures for mobile
+    setupPinchZoom() {
+      const timeline = document.querySelector('.benefits-timeline-container');
+      if (!timeline) return;
+
+      let initialDistance = 0;
+      let initialScale = 1;
+      let currentScale = 1;
+      const maxScale = 2.5; // Máximo zoom
+      const minScale = 0.7; // Mínimo zoom
+
+      const getDistance = (touches) => {
+        if (touches.length < 2) return 0;
+        const touch1 = touches[0];
+        const touch2 = touches[1];
+        return Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) +
+          Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+      };
+
+      // Touch start - detectar pinch
+      timeline.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+          initialDistance = getDistance(e.touches);
+          initialScale = currentScale;
+          this.isPaused = true;
+          this.stopAutoAdvance();
+          console.log('Pinch-to-zoom started');
+        }
+      }, { passive: true });
+
+      // Touch move - aplicar zoom
+      timeline.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2 && initialDistance > 0) {
+          e.preventDefault();
+          const currentDistance = getDistance(e.touches);
+          const scale = (currentDistance / initialDistance) * initialScale;
+          
+          currentScale = Math.min(Math.max(scale, minScale), maxScale);
+          
+          // Aplicar zoom a todos los círculos
+          const circles = timeline.querySelectorAll('.benefit-circle');
+          circles.forEach(circle => {
+            circle.style.transform = `scale(${currentScale})`;
+            circle.style.transition = 'none'; // Desactivar transición durante el zoom
+          });
+        }
+      }, { passive: false });
+
+      // Touch end - resetear zoom y reanudar
+      timeline.addEventListener('touchend', (e) => {
+        if (e.touches.length < 2 && initialDistance > 0) {
+          initialDistance = 0;
+          
+          // Resetear zoom gradualmente después de un momento
+          setTimeout(() => {
+            const circles = timeline.querySelectorAll('.benefit-circle');
+            circles.forEach(circle => {
+              circle.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+              circle.style.transform = 'scale(1)';
+            });
+            
+            // Restaurar transiciones normales
+            setTimeout(() => {
+              circles.forEach(circle => {
+                circle.style.transition = '';
+              });
+            }, 400);
+          }, 200);
+          
+          // Reanudar auto-advance si la sección sigue visible
+          setTimeout(() => {
+            this.isPaused = false;
+            const benefitsSection = document.querySelector('.benefits-section');
+            if (benefitsSection) {
+              const rect = benefitsSection.getBoundingClientRect();
+              const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+              if (isVisible) {
+                this.startAutoAdvance();
+              }
+            }
+          }, 600);
+          
+          console.log('Pinch-to-zoom ended');
+        }
+      }, { passive: true });
+    }
+  }
+
+  // Initialize Benefits Timeline
+  const benefitsTimeline = new BenefitsTimeline();
+  
+  function initializeBenefitsTimeline() {
+    console.log('DOM ready, initializing Benefits Timeline...');
+    benefitsTimeline.init();
+  }
+  
+  // Multiple initialization strategies
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeBenefitsTimeline);
+  } else {
+    initializeBenefitsTimeline();
+  }
+  
+  // Backup initialization
+  setTimeout(() => {
+    console.log('Backup initialization...');
+    benefitsTimeline.init();
+  }, 500);
+
+  // Cleanup function
+  function cleanupBenefitsTimeline() {
+    if (benefitsTimeline) {
+      benefitsTimeline.stopAutoAdvance();
+      if (benefitsTimeline.intersectionObserver) {
+        benefitsTimeline.intersectionObserver.disconnect();
+      }
+    }
+  }
+
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', cleanupBenefitsTimeline);
+</script>
+
+<style>
+  .benefits-section {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  .benefits-timeline-container {
+    position: relative;
+    cursor: grab;
+    touch-action: pan-x;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  .benefits-timeline-container:active {
+    cursor: grabbing;
+  }
+
+  .timeline-viewport {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .benefits-track {
+    display: flex;
+    align-items: center;
+  }
+
+  .benefit-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .benefit-circle {
+    transition: all 0.5s ease;
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+    flex-shrink: 0;
+  }
+
+  .benefit-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(239, 68, 68, 0.5);
+  }
+
+  /* Loading state for images */
+  .benefit-circle img {
+    transition: opacity 0.3s ease;
+  }
+
+  .benefit-circle img[loading="lazy"] {
+    opacity: 0;
+  }
+
+  .benefit-circle img[loading="lazy"].loaded {
+    opacity: 1;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .benefits-track,
+    .benefit-circle,
+    .benefit-description,
+    .benefit-text {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  /* Force images to be visible - KEEP THIS WORKING */
+  .benefit-circle img {
+    position: relative !important;
+    z-index: 100 !important;
+    opacity: 1 !important;
+    display: block !important;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .benefit-circle {
+    background: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .benefit-circle:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Pinch-to-zoom optimizations */
+  .benefits-timeline-container {
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  .benefit-circle {
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  /* Smooth transitions for zoom reset */
+  .benefit-circle.zoom-reset {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .benefit-description {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .benefit-description h3 {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .benefit-text {
+    display: inline-block;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .benefits-section h2 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+    
+    .benefit-circle {
+      width: 13rem !important;
+      height: 13rem !important;
+    }
+    
+    .benefit-description h3 {
+      font-size: 1.25rem;
+    }
+
+    .benefits-timeline-container {
+      height: 26rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .benefits-section h2 {
+      font-size: 2rem;
+    }
+    
+    .benefit-circle {
+      width: 9.75rem !important;
+      height: 9.75rem !important;
+    }
+    
+    .benefit-description h3 {
+      font-size: 1.125rem;
+    }
+
+    .benefits-timeline-container {
+      height: 20.8rem;
+    }
+  }
+
+  /* Typography adjustments to match design */
+  .benefits-section h2 {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .benefit-description h3 {
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+  }
+
+  /* Ensure proper text rendering */
+  .text-white {
+    color: #ffffff;
+  }
+
+  .text-red-500 {
+    color: #ef4444;
+  }
+
+  /* Smooth animations */
+  * {
+    transition: all 0.3s ease;
+  }
+
+  /* Complex gradient overlay with straight vertical transitions */
+  .bg-gradient-overlay {
+    background: 
+      /* Main vertical gradient - reduced black coverage by 12% */
+      linear-gradient(
+        to bottom,
+        black 0%,
+        rgba(0, 0, 0, 0.8) 7%,
+        rgba(0, 48, 144, 0.55) 16%,
+        rgba(0, 48, 144, 0.5) 26%,
+        rgba(0, 48, 144, 0.45) 40%,
+        rgba(0, 48, 144, 0.4) 53%,
+        rgba(0, 48, 144, 0.35) 66%,
+        rgba(0, 48, 144, 0.25) 79%,
+        rgba(0, 48, 144, 0.2) 88%
+      ),
+      /* Bottom right corner red overlay - extended upward */
+      radial-gradient(
+        ellipse 40% 60% at bottom right,
+        rgba(255, 0, 51, 0.35) 0%,
+        rgba(255, 0, 51, 0.18) 40%,
+        transparent 70%
+      );
+  }
+
+  /* Red line styling */
+  .bg-red-500 {
+    background-color: #ef4444;
+  }
+</style>
