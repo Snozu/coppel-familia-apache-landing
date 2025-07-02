@@ -3,7 +3,8 @@ import MobileFirstLayout from '../layouts/MobileFirstLayout.astro';
 import Hero from '../components/Hero.astro';
 import FamilyIntro from '../components/FamilyIntro.astro';
 import ModelDetail from '../components/ModelDetail.astro';
-import CTA from '../components/CTA.astro';
+import BenefitsLine from '../components/BenefitsLine.astro';
+import CTASection from '../components/CTASection.astro';
 ---
 
 <MobileFirstLayout title="Coppel Familia Apache Landing">
@@ -17,7 +18,11 @@ import CTA from '../components/CTA.astro';
 		<!-- RTR 200 4V Section -->
 		<section id="rtr-200-4v" class="snap-start min-h-screen flex flex-col"><ModelDetail /></section>
 		
-		<!-- Smart Connect Section -->
-		<section id="smart-connect" class="snap-start min-h-screen flex flex-col"><CTA /></section>
+		<!-- Benefits Section -->
+		<section id="benefits" class="snap-start min-h-screen flex flex-col"><BenefitsLine /></section>
+		
+		<!-- CTA Section -->
+		<section id="cta" class="snap-start min-h-screen flex flex-col"><CTASection /></section>
+		
 	</div>
 </MobileFirstLayout>
