@@ -6,8 +6,17 @@ import { models } from '../data/models';
   <!-- Base background -->
   <div class="absolute inset-0 bg-black"></div>
   
+  <!-- Coopel Logo -->
+  <div class="absolute top-16 left-5 z-40 safe-area-inset-top">
+    <img 
+      src="/hero/assets/CoopelLogo.png" 
+      alt="Coopel Logo" 
+      class="size-auto w-[110px] h-auto"
+    />
+  </div>
+
   <!-- TVS Logo -->
-  <div class="absolute top-10 right-5 z-40">
+  <div class="absolute top-16 right-5 z-40 safe-area-inset-top">
     <img 
       src="/hero/assets/TVSLogo.png" 
       alt="TVS Logo" 
@@ -15,59 +24,83 @@ import { models } from '../data/models';
     />
   </div>
 
-  <!-- Highway Background -->
-  <div class="absolute bottom-[27%] inset-x-0 h-[40%] z-10">
+  <!-- City Video Background - Full screen base layer -->
+  <div class="absolute inset-0 z-5">
+    <video
+      id="city-video"
+      class="w-full h-full object-cover object-center"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+    >
+      <source src="/video/city.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Highway Image - Overlaid on video -->
+  <div class="absolute top-[35%] inset-x-0 h-[40%] z-10 bg-black/10">
     <img 
       src="/hero/assets/Highway.png" 
       alt="Highway Background" 
-      class="size-full object-cover opacity-70 [transform:perspective(1000px)_rotateX(25deg)_scale(1.4)] origin-bottom"
+      class="size-full object-cover opacity-100 [transform:perspective(1000px)_rotateX(25deg)_scale(1.4)] origin-bottom"
     />
   </div>
+
+  <!-- Global Filter - Ultra smooth transitions -->
+  <div class="absolute inset-0 z-15 bg-gradient-to-b 
+    from-blue-500/35 
+    via-blue-600/30
+    via-blue-700/25
+    via-purple-800/20
+    via-purple-700/22
+    via-purple-600/24
+    via-red-700/26
+    via-red-800/28
+    via-red-900/30
+    via-red-950/25
+    via-red-950/20
+    via-red-950/15
+    via-red-950/10
+    via-black/40
+    via-black/60
+    via-black/80
+    to-black/90"></div>
   
-  <!-- Gradient Filter Overlay - covers highway but below UI elements -->
+  <!-- Animated Smoke/mist effect around motorcycle area -->
   <div class="absolute inset-0 z-15 pointer-events-none">
-    <!-- Main gradient filter using custom CSS -->
-    <div class="absolute inset-0" style="background: linear-gradient(to bottom, 
-                black 0%, 
-                rgba(0,0,0,0.8) 15%, 
-                rgba(37,99,235,0.3) 25%, 
-                rgba(96,165,250,0.2) 35%, 
-                rgba(80,97,138,0.225) 37%, 
-                rgba(127,29,29,0.25) 39%, 
-                rgba(153,27,27,0.15) 75%, 
-                black 100%)"></div>
-    
-    <!-- Animated Smoke/mist effect around motorcycle area -->
     <div class="absolute inset-0 smoke-animation-1"></div>
     <div class="absolute inset-0 smoke-animation-2"></div>
     <div class="absolute inset-0 smoke-animation-3"></div>
   </div>
 
-  <!-- LED Lines with Tailwind 4 -->
-  <div class="absolute bottom-[49%] inset-x-0 z-15 space-y-2">
-    <!-- Main LED -->
-    <div class="led-main-line relative w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent 
-                [transform:perspective(800px)_rotateX(45deg)] origin-bottom 
-                shadow-[0_0_20px_theme(colors.red.500/0.8),0_0_40px_theme(colors.red.500/0.4)]">
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/80 to-transparent blur-sm"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px top-0"></div>
-    </div>
+  <!-- LED Lines with Tailwind 4 - Static background lines -->
+  <div class="absolute top-[52%] inset-x-0 z-12 space-y-4 pointer-events-none">
+    <!-- Tertiary LED - Top line (subtle) -->
+    <div class="led-tertiary-line relative w-full h-px bg-gradient-to-r from-transparent via-red-300/40 to-transparent 
+                [transform:perspective(600px)_rotateX(30deg)] origin-bottom 
+                shadow-[0_0_8px_theme(colors.red.500/0.3)]"></div>
     
-    <!-- Secondary LED -->
+    <!-- Secondary LED - Middle line -->
     <div class="led-secondary-line relative w-full h-0.5 bg-gradient-to-r from-transparent via-red-400/60 to-transparent 
-                [transform:perspective(600px)_rotateX(35deg)] origin-bottom 
-                shadow-[0_0_15px_theme(colors.red.500/0.6)]">
+                [transform:perspective(700px)_rotateX(35deg)] origin-bottom 
+                shadow-[0_0_12px_theme(colors.red.500/0.5)]">
       <div class="absolute inset-0 bg-gradient-to-r from-transparent via-red-300/40 to-transparent blur-sm"></div>
     </div>
     
-    <!-- Tertiary LED -->
-    <div class="led-tertiary-line relative w-full h-px bg-gradient-to-r from-transparent via-red-300/40 to-transparent 
-                [transform:perspective(400px)_rotateX(25deg)] origin-bottom 
-                shadow-[0_0_10px_theme(colors.red.500/0.4)]"></div>
+    <!-- Main LED - Bottom line (most prominent) -->
+    <div class="led-main-line relative w-full h-1.5 bg-gradient-to-r from-transparent via-red-500 to-transparent 
+                [transform:perspective(900px)_rotateX(40deg)] origin-bottom 
+                shadow-[0_0_25px_theme(colors.red.500/0.9),0_0_50px_theme(colors.red.500/0.5)]">
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/80 to-transparent blur-sm"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px top-0"></div>
+    </div>
   </div>
 
   <!-- Motorcycle Carousel -->
-  <div class="absolute bottom-[49%] left-1/2 -translate-x-1/2 w-full @container z-30 px-4">
+  <div class="absolute top-[25%] left-1/2 -translate-x-1/2 w-full @container z-30 px-4">
     <div class="motorcycle-carousel">
       <div id="carousel-container" class="relative size-full cursor-grab active:cursor-grabbing overflow-hidden">
         <div id="carousel-track" class="flex transition-transform duration-500 ease-out size-full w-[300%]">
@@ -271,14 +304,34 @@ import { models } from '../data/models';
   // Initialize carousel
   const carousel = new CarouselSwiper();
   
+  // City video initialization
+  function initCityVideo() {
+    const cityVideo = document.getElementById('city-video');
+    if (cityVideo) {
+      // Ensure video is ready
+      cityVideo.addEventListener('loadeddata', () => {
+        console.log('City video loaded');
+      });
+
+      cityVideo.addEventListener('error', (e) => {
+        console.error('City video error:', e);
+      });
+
+      // Play video when in view
+      cityVideo.play().catch(e => console.log('City video autoplay prevented:', e));
+    }
+  }
+  
   document.addEventListener('DOMContentLoaded', () => {
     carousel.init();
+    initCityVideo();
   });
 
   // Also initialize immediately if DOM is already loaded
   if (document.readyState !== 'loading') {
     setTimeout(() => {
       carousel.init();
+      initCityVideo();
     }, 100);
   }
 </script>
@@ -499,6 +552,32 @@ import { models } from '../data/models';
   /* Text shadow for better readability */
   h1, h2 {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Safe area optimization for devices with Dynamic Island, notches, and cameras */
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Additional spacing for devices with camera cutouts */
+  @media screen and (max-width: 430px) {
+    .safe-area-inset-top {
+      margin-top: max(env(safe-area-inset-top, 0px), 20px);
+    }
+  }
+
+  /* iPhone 14 Pro and iPhone 15 Pro Dynamic Island optimization */
+  @media screen and (width: 393px) and (height: 852px) {
+    .safe-area-inset-top {
+      margin-top: max(env(safe-area-inset-top, 0px), 24px);
+    }
+  }
+
+  /* iPhone 14 Pro Max and iPhone 15 Pro Max optimization */
+  @media screen and (width: 430px) and (height: 932px) {
+    .safe-area-inset-top {
+      margin-top: max(env(safe-area-inset-top, 0px), 24px);
+    }
   }
 
   /* Fix overflow to hide adjacent models while preserving image visibility */

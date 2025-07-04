@@ -67,12 +67,16 @@ export interface BenefitsConfig {
 // Benefits data
 export const benefits: Benefit[] = [
   {
-    id: 'technology-india',
-    title: 'Tecnología premiada en<br>India',
-    description: 'Innovación y calidad reconocida internacionalmente',
+    id: 'technology-performance',
+    title: 'Tecnología y desempeño<br>accesible',
+    description: [
+      '• Motores eficientes y duraderos con bajo consumo de combustible',
+      '• Encendido eléctrico y frenos de disco en la mayoría de los modelos',
+      '• Componentes confiables como suspensión ajustable y tablero digital'
+    ],
     image: {
       src: '/benefits/benefits_1.webp',
-      alt: 'Tecnología premiada en India - Motor TVS',
+      alt: 'Tecnología y desempeño accesible - Motor TVS',
       width: 400,
       height: 400
     },
@@ -88,12 +92,16 @@ export const benefits: Benefit[] = [
     }
   },
   {
-    id: 'smart-connectivity',
-    title: 'Conectividad SmartXonnect',
-    description: 'Conexión inteligente para una experiencia digital completa',
+    id: 'design-functionality',
+    title: 'Diseño y<br>funcionalidad',
+    description: [
+      '• Modelos con estilo deportivo o urbano, según tu necesidad',
+      '• Asientos cómodos y manubrios ergonómicos para trayectos largos',
+      '• Algunos modelos incluyen USB, defensa, parrilla de carga y faros LED'
+    ],
     image: {
       src: '/benefits/benefits_2.webp',
-      alt: 'Conectividad SmartXonnect - Panel digital TVS',
+      alt: 'Diseño y funcionalidad - Motocicleta TVS',
       width: 400,
       height: 400
     },
@@ -103,18 +111,22 @@ export const benefits: Benefit[] = [
       easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     },
     metadata: {
-      category: 'connectivity',
+      category: 'design',
       priority: 2,
       featured: true
     }
   },
   {
-    id: 'easy-maintenance',
-    title: 'Fácil mantenimiento y<br>servicios en todo México',
-    description: 'Red de servicio nacional con repuestos disponibles',
+    id: 'ready-for-everything',
+    title: 'Listas para lo que<br>necesites',
+    description: [
+      '• Modelos para moverte, trabajar o rodar por gusto',
+      '• Opciones ideales para delivery, traslado diario o primera moto',
+      '• Capacidad de carga, buen torque y velocidad tope competitiva'
+    ],
     image: {
       src: '/benefits/benefits_3.webp',
-      alt: 'Fácil mantenimiento - Servicio técnico TVS',
+      alt: 'Listas para lo que necesites - Motocicleta TVS',
       width: 400,
       height: 400
     },
@@ -124,18 +136,22 @@ export const benefits: Benefit[] = [
       easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     },
     metadata: {
-      category: 'service',
+      category: 'versatility',
       priority: 3,
       featured: true
     }
   },
   {
-    id: 'racing-dna',
-    title: 'ADN deportivo,<br>legado Apache',
-    description: 'Herencia de competición y rendimiento extremo',
+    id: 'support-backing',
+    title: 'Soporte y<br>respaldo',
+    description: [
+      '• Red de servicio TVS en toda la república',
+      '• Primer servicio incluido tras la compra (500 o 1000 km según modelo)',
+      '• Garantía de 24 meses o 30,000 km'
+    ],
     image: {
       src: '/benefits/benefits_4.webp',
-      alt: 'ADN deportivo legado Apache - Motocicleta TVS Racing',
+      alt: 'Soporte y respaldo - Servicio TVS',
       width: 400,
       height: 400
     },
@@ -145,8 +161,33 @@ export const benefits: Benefit[] = [
       easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     },
     metadata: {
-      category: 'performance',
+      category: 'service',
       priority: 4,
+      featured: true
+    }
+  },
+  {
+    id: 'international-legacy',
+    title: 'Marca internacional<br>con legado',
+    description: [
+      '• Más de 100 años de experiencia',
+      '• Presencia en más de 80 países',
+      '• Asociaciones con marcas globales como BMW Motorrad'
+    ],
+    image: {
+      src: '/benefits/benefits_1.webp',
+      alt: 'Marca internacional con legado - TVS Global',
+      width: 400,
+      height: 400
+    },
+    animation: {
+      duration: 600,
+      delay: 400,
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+    },
+    metadata: {
+      category: 'legacy',
+      priority: 5,
       featured: true
     }
   }
