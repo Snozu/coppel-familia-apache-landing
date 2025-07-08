@@ -17,7 +17,7 @@ export const models: Model[] = [
     tagline: 'RACING DNA UNLEASHED',
     logo: '/img/logos/rtr-200-4v.svg',
     hero: '/hero/models/RTR2004V.png',
-    coppelUrl: 'https://www.coppel.com/motos-apache-rtr-200-4v',
+    coppelUrl: 'https://www.coppel.com/motocicleta-tvs-rtr-4v-200-cc-2025-pm-5791083',
     model3d: '/models/rtr-200-4v.glb',
     specs: [
       { icon: '/icons/power.svg', label: 'Potencia máx.', value: '20.5 HP', extra: '@8500 rpm' },
@@ -31,7 +31,7 @@ export const models: Model[] = [
     tagline: 'PURE PERFORMANCE',
     logo: '/img/logos/rtr-160-2v.svg',
     hero: '/hero/models/RTR1602V_.png',
-    coppelUrl: 'https://www.coppel.com/motos-apache-rtr-160-2v',
+    coppelUrl: 'https://www.coppel.com/motocicleta-tvs-apache-rtr-160-cc-2025-pm-5945653',
     model3d: '/models/rtr-160-2v.glb',
     specs: [
       { icon: '/icons/power.svg', label: 'Potencia máx.', value: '13.95 HP', extra: '@8000 rpm' },
@@ -44,8 +44,8 @@ export const models: Model[] = [
     name: 'STRYKER',
     tagline: 'DOMINATE THE STREETS',
     logo: '/img/logos/stryker.svg',
-    hero: '/hero/models/STRYKER.png',
-    coppelUrl: 'https://www.coppel.com/motos-apache-stryker',
+    hero: '/hero/models/STRYKER.webp',
+    coppelUrl: 'https://www.coppel.com/motocicleta-tvs-stryker-125-cc-2025-pm-5832883',
     model3d: '/models/stryker.glb',
     specs: [
       { icon: '/icons/power.svg', label: 'Potencia máx.', value: '15.8 HP', extra: '@7500 rpm' },
