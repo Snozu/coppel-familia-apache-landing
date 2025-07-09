@@ -6,8 +6,17 @@ import { models } from '../data/models';
   <!-- Base background -->
   <div class="absolute inset-0 bg-black"></div>
   
+  <!-- Coopel Logo -->
+  <div class="absolute top-16 left-5 z-40 safe-area-inset-top">
+    <img 
+      src="/hero/assets/CoopelLogo.png" 
+      alt="Coopel Logo" 
+      class="size-auto w-[110px] h-auto"
+    />
+  </div>
+
   <!-- TVS Logo -->
-  <div class="absolute top-10 right-5 z-40">
+  <div class="absolute top-16 right-5 z-40 safe-area-inset-top">
     <img 
       src="/hero/assets/TVSLogo.png" 
       alt="TVS Logo" 
@@ -15,59 +24,56 @@ import { models } from '../data/models';
     />
   </div>
 
-  <!-- Highway Background -->
-  <div class="absolute bottom-[27%] inset-x-0 h-[40%] z-10">
+  <!-- City Video Background - Full screen base layer -->
+  <div class="absolute inset-0 z-5">
+    <video
+      id="city-video"
+      class="w-full h-full object-contain object-top"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+    >
+      <source src="/video/city.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+
+  <!-- Highway Image - Overlaid on video -->
+  <div class="absolute top-[35%] inset-x-0 h-[40%] z-20">
     <img 
       src="/hero/assets/Highway.png" 
       alt="Highway Background" 
-      class="size-full object-cover opacity-70 [transform:perspective(1000px)_rotateX(25deg)_scale(1.4)] origin-bottom"
+      class="size-full object-cover opacity-100 [transform:perspective(1000px)_rotateX(25deg)_scale(1.4)] origin-bottom"
     />
   </div>
-  
-  <!-- Gradient Filter Overlay - covers highway but below UI elements -->
-  <div class="absolute inset-0 z-15 pointer-events-none">
-    <!-- Main gradient filter using custom CSS -->
-    <div class="absolute inset-0" style="background: linear-gradient(to bottom, 
-                black 0%, 
-                rgba(0,0,0,0.8) 15%, 
-                rgba(37,99,235,0.3) 25%, 
-                rgba(96,165,250,0.2) 35%, 
-                rgba(80,97,138,0.225) 37%, 
-                rgba(127,29,29,0.25) 39%, 
-                rgba(153,27,27,0.15) 75%, 
-                black 100%)"></div>
-    
-    <!-- Animated Smoke/mist effect around motorcycle area -->
-    <div class="absolute inset-0 smoke-animation-1"></div>
-    <div class="absolute inset-0 smoke-animation-2"></div>
-    <div class="absolute inset-0 smoke-animation-3"></div>
-  </div>
 
-  <!-- LED Lines with Tailwind 4 -->
-  <div class="absolute bottom-[49%] inset-x-0 z-15 space-y-2">
-    <!-- Main LED -->
-    <div class="led-main-line relative w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent 
-                [transform:perspective(800px)_rotateX(45deg)] origin-bottom 
-                shadow-[0_0_20px_theme(colors.red.500/0.8),0_0_40px_theme(colors.red.500/0.4)]">
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/80 to-transparent blur-sm"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent h-px top-0"></div>
-    </div>
-    
-    <!-- Secondary LED -->
-    <div class="led-secondary-line relative w-full h-0.5 bg-gradient-to-r from-transparent via-red-400/60 to-transparent 
-                [transform:perspective(600px)_rotateX(35deg)] origin-bottom 
-                shadow-[0_0_15px_theme(colors.red.500/0.6)]">
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-red-300/40 to-transparent blur-sm"></div>
-    </div>
-    
-    <!-- Tertiary LED -->
-    <div class="led-tertiary-line relative w-full h-px bg-gradient-to-r from-transparent via-red-300/40 to-transparent 
-                [transform:perspective(400px)_rotateX(25deg)] origin-bottom 
-                shadow-[0_0_10px_theme(colors.red.500/0.4)]"></div>
-  </div>
+  <!-- Red illumination filter for highway center -->
+  <div class="absolute top-[41%] inset-x-0 h-[27%] z-25 
+              [background:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.08)_8%,rgba(0,0,0,0.12)_15%,rgba(0,0,0,0.08)_25%,rgba(0,0,0,0.03)_35%,transparent_45%,transparent_65%,rgba(0,0,0,0.02)_75%,rgba(0,0,0,0.05)_85%,rgba(0,0,0,0.08)_92%,rgba(0,0,0,0.12)_100%),radial-gradient(ellipse_80%_100%_at_center,rgba(239,68,68,0.35)_0%,rgba(239,68,68,0.30)_20%,rgba(239,68,68,0.25)_40%,rgba(239,68,68,0.15)_60%,rgba(239,68,68,0.08)_75%,rgba(239,68,68,0.03)_85%,transparent_100%)]
+              [filter:blur(2px)]"></div>
+
+  <!-- Global Filter - TEMPORARILY DISABLED FOR DEBUGGING -->
+  <!-- <div class="absolute inset-0 z-25 bg-gradient-to-b 
+    from-blue-400/30 
+    via-blue-500/28
+    via-blue-600/25
+    via-purple-700/22
+    via-red-700/35
+    via-red-900/25
+    via-red-950/20
+    via-black/15
+    via-black/35
+    via-black/60
+    via-black/80
+    to-black/95"></div> -->
+  
+
 
   <!-- Motorcycle Carousel -->
-  <div class="absolute bottom-[49%] left-1/2 -translate-x-1/2 w-full @container z-30 px-4">
+  <div class="absolute top-[20%] left-1/2 -translate-x-1/2 w-full @container z-30 px-4">
     <div class="motorcycle-carousel">
       <div id="carousel-container" class="relative size-full cursor-grab active:cursor-grabbing overflow-hidden">
         <div id="carousel-track" class="flex transition-transform duration-500 ease-out size-full w-[300%]">
@@ -83,10 +89,19 @@ import { models } from '../data/models';
               />
               
               <div class="absolute bottom-0 left-[10%] z-30">
-                <h2 class="text-white font-semibold text-sm tracking-wide font-['Montserrat'] 
-                           [text-shadow:2px_2px_8px_rgba(0,0,0,0.9)] text-center">
+                <button 
+                  class="model-name-btn text-white font-semibold text-sm tracking-wide font-['Montserrat'] 
+                         [text-shadow:2px_2px_8px_rgba(0,0,0,0.9)] text-center
+                         hover:text-red-400 hover:scale-105 transition-all duration-300 ease-out
+                         cursor-pointer active:scale-95 select-none
+                         underline decoration-transparent hover:decoration-red-400 
+                         decoration-2 underline-offset-2 transition-colors"
+                  data-coppel-url={model.coppelUrl}
+                  data-model-name={model.name}
+                  type="button"
+                >
                   {model.name}
-                </h2>
+                </button>
               </div>
             </div>
           ))}
@@ -121,9 +136,12 @@ import { models } from '../data/models';
     carouselTrack;
     startX;
     currentX;
+    startY;
+    currentY;
     isDragging;
     threshold;
     autoSlideInterval;
+    swipeDirection;
 
     constructor() {
       this.currentSlide = 0;
@@ -131,9 +149,12 @@ import { models } from '../data/models';
       this.carouselTrack = null;
       this.startX = 0;
       this.currentX = 0;
+      this.startY = 0;
+      this.currentY = 0;
       this.isDragging = false;
       this.threshold = 50;
       this.autoSlideInterval = null;
+      this.swipeDirection = null;
     }
 
     init() {
@@ -169,32 +190,51 @@ import { models } from '../data/models';
       }
     }
 
-    handleStart(clientX) {
+    handleStart(clientX, clientY) {
       this.startX = clientX;
       this.currentX = clientX;
+      this.startY = clientY;
+      this.currentY = clientY;
       this.isDragging = true;
+      this.swipeDirection = null;
       this.stopAutoSlide();
     }
 
-    handleMove(clientX) {
+    handleMove(clientX, clientY) {
       if (!this.isDragging) return;
       this.currentX = clientX;
+      this.currentY = clientY;
+      
+      // Determine swipe direction if not already set
+      if (!this.swipeDirection) {
+        const deltaX = Math.abs(this.currentX - this.startX);
+        const deltaY = Math.abs(this.currentY - this.startY);
+        
+        // Only set direction if movement is significant enough
+        if (deltaX > 10 || deltaY > 10) {
+          this.swipeDirection = deltaX > deltaY ? 'horizontal' : 'vertical';
+        }
+      }
     }
 
     handleEnd() {
       if (!this.isDragging) return;
       
-      const diff = this.currentX - this.startX;
-      
-      if (Math.abs(diff) > this.threshold) {
-        if (diff > 0) {
-          this.prevSlide();
-        } else {
-          this.nextSlide();
+      // Only handle horizontal swipes for carousel
+      if (this.swipeDirection === 'horizontal') {
+        const diff = this.currentX - this.startX;
+        
+        if (Math.abs(diff) > this.threshold) {
+          if (diff > 0) {
+            this.prevSlide();
+          } else {
+            this.nextSlide();
+          }
         }
       }
       
       this.isDragging = false;
+      this.swipeDirection = null;
       this.startAutoSlide();
     }
 
@@ -205,31 +245,39 @@ import { models } from '../data/models';
 
       // Touch events
       carousel.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        this.handleStart(e.touches[0].clientX);
-      }, { passive: false });
+        this.handleStart(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
 
       carousel.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        this.handleMove(e.touches[0].clientX);
+        this.handleMove(e.touches[0].clientX, e.touches[0].clientY);
+        
+        // Only prevent default for horizontal swipes
+        if (this.swipeDirection === 'horizontal') {
+          e.preventDefault();
+        }
       }, { passive: false });
 
       carousel.addEventListener('touchend', (e) => {
-        e.preventDefault();
         this.handleEnd();
+        
+        // Only prevent default if we handled a horizontal swipe
+        if (this.swipeDirection === 'horizontal') {
+          e.preventDefault();
+        }
       }, { passive: false });
 
       // Mouse events for desktop
       carousel.addEventListener('mousedown', (e) => {
         e.preventDefault();
-        this.handleStart(e.clientX);
+        this.handleStart(e.clientX, e.clientY);
         carousel.style.cursor = 'grabbing';
       });
 
       carousel.addEventListener('mousemove', (e) => {
         if (this.isDragging) {
+          this.handleMove(e.clientX, e.clientY);
+          // For mouse events, we can always prevent default since it's desktop
           e.preventDefault();
-          this.handleMove(e.clientX);
         }
       });
 
@@ -271,14 +319,72 @@ import { models } from '../data/models';
   // Initialize carousel
   const carousel = new CarouselSwiper();
   
+  // Model name click handler for Coppel redirection
+  class ModelRedirectHandler {
+    init() {
+      this.setupModelClickListeners();
+    }
+
+    setupModelClickListeners() {
+      const modelButtons = document.querySelectorAll('.model-name-btn');
+      
+      modelButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent carousel interaction
+          this.handleModelClick(button);
+        });
+      });
+    }
+
+    handleModelClick(button) {
+      const coppelUrl = button.getAttribute('data-coppel-url');
+      const modelName = button.getAttribute('data-model-name');
+      
+      if (coppelUrl) {
+        // Optional: Add analytics tracking here
+        console.log(`Redirecting to Coppel for model: ${modelName}`);
+        
+        // Open in new tab to maintain user's position on the landing page
+        window.open(coppelUrl, '_blank', 'noopener,noreferrer');
+      } else {
+        console.warn(`No Coppel URL found for model: ${modelName}`);
+      }
+    }
+  }
+
+  // Initialize model redirect handler
+  const modelRedirectHandler = new ModelRedirectHandler();
+  
+  // City video initialization
+  function initCityVideo() {
+    const cityVideo = document.getElementById('city-video');
+    if (cityVideo) {
+      // Ensure video is ready
+      cityVideo.addEventListener('loadeddata', () => {
+        console.log('City video loaded');
+      });
+
+      cityVideo.addEventListener('error', (e) => {
+        console.error('City video error:', e);
+      });
+
+      // Play video when in view
+      cityVideo.play().catch(e => console.log('City video autoplay prevented:', e));
+    }
+  }
+  
   document.addEventListener('DOMContentLoaded', () => {
     carousel.init();
+    initCityVideo();
+    modelRedirectHandler.init();
   });
 
   // Also initialize immediately if DOM is already loaded
   if (document.readyState !== 'loading') {
     setTimeout(() => {
       carousel.init();
+      initCityVideo();
+      modelRedirectHandler.init();
     }, 100);
   }
 </script>
@@ -299,116 +405,7 @@ import { models } from '../data/models';
     cursor: grabbing;
   }
 
-  /* LED Lines with Perspective Effect */
-  .led-main-line {
-    animation: led-pulse-main 3s ease-in-out infinite;
-    box-shadow: 
-      0 0 20px rgba(239, 68, 68, 0.8),
-      0 0 40px rgba(239, 68, 68, 0.4),
-      0 0 80px rgba(239, 68, 68, 0.1);
-  }
 
-  .led-secondary-line {
-    animation: led-pulse-secondary 3s ease-in-out infinite 0.5s;
-    box-shadow: 
-      0 0 15px rgba(239, 68, 68, 0.6),
-      0 0 30px rgba(239, 68, 68, 0.3);
-  }
-
-  .led-tertiary-line {
-    animation: led-pulse-tertiary 3s ease-in-out infinite 1s;
-    box-shadow: 
-      0 0 10px rgba(239, 68, 68, 0.4),
-      0 0 20px rgba(239, 68, 68, 0.2);
-  }
-
-  @keyframes led-pulse-main {
-    0%, 100% { opacity: 0.9; transform: perspective(800px) rotateX(45deg) scaleX(1); }
-    50% { opacity: 1; transform: perspective(800px) rotateX(45deg) scaleX(1.05); }
-  }
-
-  @keyframes led-pulse-secondary {
-    0%, 100% { opacity: 0.7; transform: perspective(600px) rotateX(35deg) scaleX(1); }
-    50% { opacity: 0.9; transform: perspective(600px) rotateX(35deg) scaleX(1.03); }
-  }
-
-  @keyframes led-pulse-tertiary {
-    0%, 100% { opacity: 0.5; transform: perspective(400px) rotateX(25deg) scaleX(1); }
-    50% { opacity: 0.7; transform: perspective(400px) rotateX(25deg) scaleX(1.02); }
-  }
-
-  /* Animated Smoke Effects */
-  .smoke-animation-1 {
-    background: radial-gradient(ellipse 60% 25% at 45% 57%, rgba(255,255,255,0.04) 0%, rgba(59,130,246,0.02) 30%, transparent 60%);
-    animation: smoke-drift-1 8s ease-in-out infinite;
-  }
-
-  .smoke-animation-2 {
-    background: radial-gradient(ellipse 70% 30% at 55% 55%, rgba(96,165,250,0.03) 0%, rgba(255,255,255,0.015) 40%, transparent 70%);
-    animation: smoke-drift-2 12s ease-in-out infinite;
-  }
-
-  .smoke-animation-3 {
-    background: radial-gradient(ellipse 50% 20% at 50% 59%, rgba(147,197,253,0.025) 0%, rgba(255,255,255,0.01) 50%, transparent 80%);
-    animation: smoke-drift-3 10s ease-in-out infinite;
-  }
-
-  @keyframes smoke-drift-1 {
-    0%, 100% { 
-      transform: translateX(0%) translateY(0%) scale(1);
-      opacity: 0.6;
-    }
-    25% { 
-      transform: translateX(-2%) translateY(-1%) scale(1.05);
-      opacity: 0.8;
-    }
-    50% { 
-      transform: translateX(1%) translateY(-2%) scale(0.95);
-      opacity: 0.7;
-    }
-    75% { 
-      transform: translateX(2%) translateY(-1%) scale(1.02);
-      opacity: 0.9;
-    }
-  }
-
-  @keyframes smoke-drift-2 {
-    0%, 100% { 
-      transform: translateX(0%) translateY(0%) scale(1);
-      opacity: 0.5;
-    }
-    30% { 
-      transform: translateX(3%) translateY(-1.5%) scale(1.08);
-      opacity: 0.7;
-    }
-    60% { 
-      transform: translateX(-1%) translateY(-3%) scale(0.92);
-      opacity: 0.6;
-    }
-    80% { 
-      transform: translateX(-2%) translateY(-1%) scale(1.04);
-      opacity: 0.8;
-    }
-  }
-
-  @keyframes smoke-drift-3 {
-    0%, 100% { 
-      transform: translateX(0%) translateY(0%) scale(1);
-      opacity: 0.4;
-    }
-    20% { 
-      transform: translateX(-1%) translateY(-2%) scale(1.06);
-      opacity: 0.6;
-    }
-    40% { 
-      transform: translateX(2%) translateY(-1%) scale(0.94);
-      opacity: 0.5;
-    }
-    70% { 
-      transform: translateX(1%) translateY(-2.5%) scale(1.03);
-      opacity: 0.7;
-    }
-  }
 
 
 
@@ -501,6 +498,32 @@ import { models } from '../data/models';
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
   }
 
+  /* Safe area optimization for devices with Dynamic Island, notches, and cameras */
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Additional spacing for devices with camera cutouts */
+  @media screen and (max-width: 430px) {
+    .safe-area-inset-top {
+      margin-top: max(env(safe-area-inset-top, 0px), 20px);
+    }
+  }
+
+  /* iPhone 14 Pro and iPhone 15 Pro Dynamic Island optimization */
+  @media screen and (width: 393px) and (height: 852px) {
+    .safe-area-inset-top {
+      margin-top: max(env(safe-area-inset-top, 0px), 24px);
+    }
+  }
+
+  /* iPhone 14 Pro Max and iPhone 15 Pro Max optimization */
+  @media screen and (width: 430px) and (height: 932px) {
+    .safe-area-inset-top {
+      margin-top: max(env(safe-area-inset-top, 0px), 24px);
+    }
+  }
+
   /* Fix overflow to hide adjacent models while preserving image visibility */
   #carousel-container {
     overflow: visible !important;
@@ -518,5 +541,42 @@ import { models } from '../data/models';
   .carousel-slide .absolute.left-\[-80px\] {
     position: static !important;
     transform: none !important;
+  }
+
+  /* Model name button styles */
+  .model-name-btn {
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .model-name-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transform: scale(1.05);
+  }
+
+  .model-name-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* Subtle glow effect on hover */
+  .model-name-btn:hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  /* Focus state for accessibility */
+  .model-name-btn:focus {
+    outline: 2px solid rgba(239, 68, 68, 0.6);
+    outline-offset: 2px;
   }
 </style>
